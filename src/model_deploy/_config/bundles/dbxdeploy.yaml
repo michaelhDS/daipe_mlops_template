@@ -1,0 +1,8 @@
+parameters:
+  dbxdeploy:
+    databricks:
+      host: '%daipeproject.databricks.address%'
+      token: '%env(DBX_TOKEN)%'
+    target:
+      repo:
+        base_dir: "%daipeproject.databricks.repo.base_dir%"

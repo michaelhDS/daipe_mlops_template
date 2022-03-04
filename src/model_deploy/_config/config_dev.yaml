@@ -1,0 +1,11 @@
+imports:
+  - config.yaml
+
+parameters:
+  daipeproject:
+    databricks:
+      address: '[Your workspace address]'
+      repo:
+        base_dir: "/Repos/{user_folder_name}/{dir_name}"
+      job:
+        suffix: "{user_folder_name} ({dir_name})"

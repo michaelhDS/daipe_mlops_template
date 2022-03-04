@@ -1,0 +1,16 @@
+imports:
+  - config.yaml
+
+parameters:
+  daipeproject:
+    databricks:
+      address: '[Your workspace address]'
+      repo:
+        base_dir: "/Repos/{repo_name}/latest_tag"
+      job:
+        suffix: "{repo_name}"
+
+  datalakebundle:
+    notebook:
+      display:
+        enabled: False
