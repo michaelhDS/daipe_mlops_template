@@ -1,6 +1,12 @@
 pipeline {
     agent any
-
+    
+    environment {
+        AWS_DEFAULT_REGION    = 'eu-central-1'
+        KEY_ID = "${env.aws_access_key_id}"
+        ACCESS_KEY = "${env.aws_secret_key}"   
+    }
+    
     stages {
         stage('Pre-build') {
             steps {
@@ -37,11 +43,11 @@ pipeline {
                     then
                         echo "Repo pack_and_push is already cloned" 
                         rm -rf pack_and_deploy
-                        git clone https://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@github.com/michaelhDS/pack_and_deploy.git
+                        git clone https://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@github.com/michaelhDS/pack_and_deploy.git
 
                     else
                         echo "Clone Repo pack_and_deploy"
-                        git clone https://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@github.com/michaelhDS/pack_and_deploy.git
+                        git clone https://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@github.com/michaelhDS/pack_and_deploy.git
 
                     fi
 
@@ -63,6 +69,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+            
                 echo 'Deploying....'
                 sh  '''
                     #!/bin/bash
@@ -76,19 +83,14 @@ pipeline {
 
                     BENTO_BUNDLE_PATH=$(python3.7 -m bentoml get Master:latest --print-location -q)
 
-                    aws_access_key=$(jq .aws_access_key ../bentoml/config.json -r)
-                    aws_secret_access_key=$(jq .aws_secret_access_key ../bentoml/config.json -r)
-                    aws_default_region=$(jq .aws_default_region ../bentoml/config.json -r)
-
-                    export AWS_ACCESS_KEY_ID=$aws_access_key
-                    export AWS_SECRET_ACCESS_KEY=$aws_secret_access_key
-                    export AWS_DEFAULT_REGION=$aws_default_region
-
+                    export AWS_DEFAULT_REGION='eu-central-1'
+                    export AWS_ACCESS_KEY_ID="${KEY_ID}"
+                    export AWS_SECRET_ACCESS_KEY="${ACCESS_KEY}" 
+                   
                     python3.7 -m bentoml list
                     python3.7 -m bentoml containerize Master:latest
 
                     stack_name=$(jq .aws_stack_name ../bentoml/config.json -r)
-
 
                     python3.7 -m deploy $BENTO_BUNDLE_PATH $stack_name lambda_config.json
                     python describe.py $stack_name

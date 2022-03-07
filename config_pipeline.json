@@ -1,14 +1,7 @@
 {
     "databricks_host": "https://adb-5190004788406131.11.azuredatabricks.net/",
     "databricks_token": "dapi137393ef031ca818d61fca4ec6cddf1b",
-    "aws_access_key": "AKIAYB7TY7WS6SSAPOGO",
-    "aws_secret_access_key": "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",
-    "aws_default_region": "eu-central-1",
-   
-    "jenkins_job_name" : "dbx_daipe_demo_1",          
-    "Jenkins_url" : "http://18.185.104.16:8080",
-    "jenkins_user" : "m",
-    "jenkins_pwd" : "jenkins_pwd",
-    "buildWithParameters" : "False",
-    "jenkins_params" : "{'token': '-/9}u_N>O[^V7KTxWw%%;&Wz[n97^X'}"
+    "aws_stack_name": "iris_model_mh_1",
+    "model_name": "iris_model",
+    "model_run_id": "d3b92192816c4f17b8aa6bfb19fd2d79",
 }
